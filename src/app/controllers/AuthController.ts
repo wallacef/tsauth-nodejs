@@ -1,3 +1,4 @@
+require('dotenv').config()
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import bcrypt from 'bcryptjs';
@@ -20,7 +21,7 @@ class AuthController {
         if(!isValidPassword) {
             return res.sendStatus(401);
         }
-        const token = jwt.sign({ id: user.id }, 'secret', { expiresIn: '1d' } );
+        const token = jwt.sign({ id: user.id }, process.env.SECRET as string, { expiresIn: '1d' } );
         return res.json({ user, token });
     }
 }
