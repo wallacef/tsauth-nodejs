@@ -15,6 +15,11 @@ export class CreateUsersTable1615045558603 implements MigrationInterface {
                     default: 'uuid_generate_v4()',
                 },
                 {
+                    name: 'name',
+                    type: 'varchar',
+                    length: '128',
+                },
+                {
                     name: 'email',
                     type: 'varchar',
                     isUnique: true,

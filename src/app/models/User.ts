@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate, Timestamp } from 'typeorm';
 import bcrypt from 'bcryptjs';
 
 @Entity('users')
@@ -13,10 +13,21 @@ class User {
     @Column()
     password: string;
 
+    @Column('timestamp')
+    created_at: Date;
+
+    @Column('timestamp')
+    updated_at: Date;
+
     @BeforeInsert()
     @BeforeUpdate()
     hashPassword() {
         this.password = bcrypt.hashSync(this.password, 8);
+    }
+
+    @BeforeUpdate()
+    updatedAt() {
+        this.updated_at = new Date();
     }
 }
 
